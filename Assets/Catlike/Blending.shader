@@ -35,13 +35,13 @@
 
             struct v2f
             {
-                UV_DECL(Main, 0);
-                UV_DECL(R, 1);
-                UV_DECL(G, 2);
-                UV_DECL(B, 3);
-                UV_DECL(K, 4);
+                UV_DECL(Main, 0)
+                UV_DECL(R, 1)
+                UV_DECL(G, 2)
+                UV_DECL(B, 3)
+                UV_DECL(K, 4)
 
-                UNITY_FOG_COORDS(1)
+                UNITY_FOG_COORDS(5)
             };
 
             TEX_DECL(Main);

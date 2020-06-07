@@ -6,7 +6,7 @@
     float4 _##name##Tex_ST
 
 #define UV_DECL(name, n) \
-    float2 uv##name : TEXCOORD##n
+    float2 uv##name : TEXCOORD##n;
 
 float2 hash(float2 x) { // replace this by something better
     const float2 k = float2(0.3183099, 0.3678794);
