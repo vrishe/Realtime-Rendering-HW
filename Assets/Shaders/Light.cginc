@@ -65,4 +65,15 @@ half4 ApplyFragmentLight(LightParams params, UnityGI gi, float3 albedo, half alp
     return col;
 }
 
+float3 ApplyBumpHeightMap(sampler2D heightMap, float2 texelSize, float2 uv, float2 scale = float2(1., 1.)) {
+    float3 d = float3(.5 * texelSize.x, .5 * texelSize.y, .0);
+
+    float u1 = tex2D(heightMap, uv - d.xz);
+    float v1 = tex2D(heightMap, uv - d.zy);
+    float u2 = tex2D(heightMap, uv + d.xz);
+    float v2 = tex2D(heightMap, uv + d.zy);
+
+    return float3(scale.x*(u1-u2), scale.x*scale.y, scale.y*(v1-v2));
+}
+
 #endif // LIGHT_INCLUDED

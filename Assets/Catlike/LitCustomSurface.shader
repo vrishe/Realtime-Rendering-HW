@@ -3,6 +3,8 @@
     Properties
     {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        [NoScaleOffset] _HeightMap("Heights", 2D) = "gray" {}
+        _BumpAmount("Bump Amount", Float) = 0.5
         _Tint("Tint", Color) = (1,1,1,1)
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         [Gamma] _Metallic ("Metallic", Range(0,1)) = 0.0
@@ -55,10 +57,17 @@
         }
 
         float3 _Tint;
-        float _Glossiness, _Metallic;
+        float _BumpAmount, _Glossiness, _Metallic;
+
+        MAP_DECL(Height);
 
         fixed4 frag(v2f f) : SV_Target
         {
+            float3 bumpNormal = ApplyBumpHeightMap(_HeightMap, _HeightMap_TexelSize.xy,
+                f.uvMain, _HeightMap_TexelSize.xy);
+
+            f.normal = lerp(normalize(f.normal), normalize(bumpNormal), _BumpAmount);
+
             LightParams lp;
             {
                 lp.gloss = _Glossiness;
@@ -70,12 +79,12 @@
             UnityGI gi;
             {
                 gi.indirect.specular = .0;
-                gi.indirect.diffuse = VERTEXLIGHT_EXTRACT_COLOR(i);
+                gi.indirect.diffuse = VERTEXLIGHT_EXTRACT_COLOR(f);
             }
 
             CalculateGI(f.worldPos, lp.normal, gi);
             
-            float3 albedo = _Tint * tex2D(_MainTex, f.uvMain);
+            float3 albedo = _Tint * tex2D(_MainTex, f.uvMain).rgb;
             return ApplyFragmentLight(lp, gi, albedo);
         }
         ENDCG

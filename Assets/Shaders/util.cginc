@@ -5,6 +5,10 @@
     sampler2D _##name##Tex; \
     float4 _##name##Tex_ST
 
+#define MAP_DECL(name)            \
+    sampler2D _##name##Map;       \
+    float3 _##name##Map_TexelSize
+
 #define UV_DECL(name, n) \
     float2 uv##name : TEXCOORD##n;
 
