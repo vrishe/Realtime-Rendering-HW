@@ -1,18 +1,18 @@
 #ifndef UTIL_INCLUDED
 #define UTIL_INCLUDED
 
-#define TEX_DECL(name)      \
-    sampler2D _##name##Tex; \
+#define TEX_DECL(name)             \
+    sampler2D _##name##Tex;        \
     float4 _##name##Tex_ST
 
-#define MAP_DECL(name)            \
-    sampler2D _##name##Map;       \
+#define MAP_DECL(name)             \
+    sampler2D _##name##Map;        \
     float3 _##name##Map_TexelSize
 
-#define UV_DECL(name, n) \
+#define UV_DECL(name, n)           \
     float2 uv##name : TEXCOORD##n;
 
-float2 hash(float2 x) { // replace this by something better
+float2 hash(float2 x) { // replace this with something better
     const float2 k = float2(0.3183099, 0.3678794);
 
     x = (x + 1) * k;

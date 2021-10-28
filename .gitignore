@@ -10,6 +10,9 @@ s .gitignore file should be placed at the root of your Unity project directory
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
+/Packages/packages-lock.json
+UserSettings/
+
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
 
